@@ -27,7 +27,7 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String stringId = req.getParameter("id");
-        if (stringId!=null) {
+        if (stringId != null) {
             long id = Long.parseLong(stringId);
             Optional<User> optionalUser = userService.get(id);
             if (optionalUser.isPresent()) {
@@ -42,12 +42,16 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = User.builder()
-                .id(Long.parseLong(req.getParameter("id")))
                 .login(req.getParameter("login"))
                 .password(req.getParameter("password"))
                 .role(Role.valueOf(req.getParameter("role")))
                 .build();
-        userService.update(user);
-        resp.sendRedirect("edit-user?id="+user.getId());
+        if (req.getParameter("create") != null) {
+            userService.create(user);
+        } else if (req.getParameter("update") != null) {
+            user.setId(Long.parseLong(req.getParameter("id")));
+            userService.update(user);
+        }
+        resp.sendRedirect("edit-user?id=" + user.getId());
     }
 }
