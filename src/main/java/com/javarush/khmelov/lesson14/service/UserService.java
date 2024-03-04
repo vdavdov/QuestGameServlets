@@ -7,14 +7,17 @@ import com.javarush.khmelov.lesson14.repository.UserRepository;
 import java.util.Collection;
 import java.util.Optional;
 
-public enum UserService {
+public class UserService {
 
-    USER_SERVICE;
 
-    private final Repository<User> userRepository = new UserRepository();
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public void create(User user) {
-        userRepository.create(user);
+                userRepository.create(user);
     }
 
     public void update(User user) {
