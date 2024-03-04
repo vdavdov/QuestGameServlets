@@ -1,7 +1,6 @@
 package com.javarush.khmelov.lesson14.service;
 
 import com.javarush.khmelov.lesson14.entity.User;
-import com.javarush.khmelov.lesson14.repository.Repository;
 import com.javarush.khmelov.lesson14.repository.UserRepository;
 
 import java.util.Collection;
@@ -17,7 +16,7 @@ public class UserService {
     }
 
     public void create(User user) {
-                userRepository.create(user);
+        userRepository.create(user);
     }
 
     public void update(User user) {
