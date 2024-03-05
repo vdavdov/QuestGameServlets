@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet({"/", "/cmd-*"})
+@WebServlet({"", "/home", "/edit-user", "/list-user"})
 public class FrontController extends HttpServlet {
 
     private HttpCommandResolver httpCommandResolver;
@@ -25,8 +25,7 @@ public class FrontController extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uri = req.getRequestURI()
-                .replace("/cmd-","/");
+        String uri = req.getRequestURI();
         Command command = httpCommandResolver.resolve(uri);
         if (req.getMethod().equalsIgnoreCase("get")) {
             String view = command.doGet(req, resp);

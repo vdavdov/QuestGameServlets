@@ -4,5 +4,5 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="cmd-list-user">List Users</a>
+<a href="list-user">List Users</a>
 </body>

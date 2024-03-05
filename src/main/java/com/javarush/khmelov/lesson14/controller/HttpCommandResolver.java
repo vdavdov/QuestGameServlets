@@ -40,7 +40,7 @@ public class HttpCommandResolver {
 
     public Command resolve(String url) {
         Matcher matcher = Pattern.compile("[a-z-]+").matcher(url);
-        String key = "home";
+        String key = "index";
         if (matcher.find()) {
             key = matcher.group();
         }
