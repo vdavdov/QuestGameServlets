@@ -1,33 +1,27 @@
-package com.javarush.khmelov.lesson14.controller;
+package com.javarush.khmelov.lesson14.controller.cmd;
 
 import com.javarush.khmelov.lesson14.entity.Role;
 import com.javarush.khmelov.lesson14.entity.User;
 import com.javarush.khmelov.lesson14.service.UserService;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet("/edit-user")
-public class EditUserServlet extends HttpServlet {
+public class EditUser implements Command {
 
-    private final UserService userService = UserService.USER_SERVICE;
+    private final UserService userService;
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        config.getServletContext().setAttribute("roles", Role.values());
+    public EditUser(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String stringId = req.getParameter("id");
-        if (stringId!=null) {
+        if (stringId != null) {
             long id = Long.parseLong(stringId);
             Optional<User> optionalUser = userService.get(id);
             if (optionalUser.isPresent()) {
@@ -35,19 +29,22 @@ public class EditUserServlet extends HttpServlet {
                 req.setAttribute("user", user);
             }
         }
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/edit-user.jsp");
-        requestDispatcher.forward(req, resp);
+        return getJspView();
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = User.builder()
-                .id(Long.parseLong(req.getParameter("id")))
                 .login(req.getParameter("login"))
                 .password(req.getParameter("password"))
                 .role(Role.valueOf(req.getParameter("role")))
                 .build();
-        userService.update(user);
-        resp.sendRedirect("edit-user?id="+user.getId());
+        if (req.getParameter("create") != null) {
+            userService.create(user);
+        } else if (req.getParameter("update") != null) {
+            user.setId(Long.parseLong(req.getParameter("id")));
+            userService.update(user);
+        }
+        return "cmd-edit-user?id=" + user.getId();
     }
 }
