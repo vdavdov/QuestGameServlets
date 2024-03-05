@@ -11,10 +11,25 @@ import java.util.regex.Pattern;
 
 public class HttpCommandResolver {
 
-    private final Map<String, Command> commandMap = new HashMap<>();
+    private final Map<String, Command> dymamicCommandMap = new HashMap<>();
 
     @SneakyThrows
-    public static Command getHttpCommand(String simpleName) {
+    public Command resolve(String url) {
+        Matcher matcher = Pattern.compile("[a-z-]+").matcher(url);
+        String key = "index";
+        if (matcher.find()) {
+            key = matcher.group();
+        }
+        if (dymamicCommandMap.containsKey(key)) {
+            return dymamicCommandMap.get(key);
+        }
+        String simpleName = convertDotStyleToCamelCase(key);
+        Command command = getHttpCommand(simpleName);
+        dymamicCommandMap.put(key, command);
+        return command;
+    }
+
+    public static Command getHttpCommand(String simpleName) throws ClassNotFoundException {
         String className = "com.javarush.khmelov.lesson14.controller.cmd." + simpleName;
         Class<?> aClass = Class.forName(className);
         return (Command) Winter.find(aClass);
@@ -36,20 +51,5 @@ public class HttpCommandResolver {
             }
         }
         return result.toString();
-    }
-
-    public Command resolve(String url) {
-        Matcher matcher = Pattern.compile("[a-z-]+").matcher(url);
-        String key = "index";
-        if (matcher.find()) {
-            key = matcher.group();
-        }
-        if (commandMap.containsKey(key)) {
-            return commandMap.get(key);
-        }
-        String simpleName = convertDotStyleToCamelCase(key);
-        Command command = getHttpCommand(simpleName);
-        commandMap.put(key, command);
-        return command;
     }
 }

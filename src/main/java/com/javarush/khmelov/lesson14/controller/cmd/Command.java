@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 public interface Command {
 
@@ -15,7 +15,7 @@ public interface Command {
     }
 
     default String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        return getPage();
+        return "redirect:/" + getPage();
     }
 
     default String getJspView() {
@@ -25,11 +25,10 @@ public interface Command {
 
     private String getPage() {
         String snakeName = this.getClass().getSimpleName().chars()
-                .mapToObj(s -> String.valueOf((char) s))
-                .flatMap(s -> s.matches("[A-Z]")
-                        ? Stream.of("-", s)
-                        : Stream.of(s))
-                .collect(Collectors.joining())
+                .flatMap(s -> s <= 'Z' && s >= 'A'
+                        ? IntStream.of('-', s)
+                        : IntStream.of(s))
+                .mapToObj(s -> String.valueOf((char) s)).collect(Collectors.joining())
                 .toLowerCase();
         return snakeName.startsWith("-") ? snakeName.substring(1) : snakeName;
     }

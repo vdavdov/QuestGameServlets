@@ -4,6 +4,7 @@ import com.javarush.khmelov.lesson14.config.Winter;
 import com.javarush.khmelov.lesson14.entity.User;
 import com.javarush.khmelov.lesson14.service.UserService;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
