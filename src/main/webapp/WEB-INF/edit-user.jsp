@@ -54,10 +54,10 @@
 
             <!-- Button (Double) -->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="create">Operation</label>
+                <label class="col-md-4 control-label" for="createButton">Operation</label>
                 <div class="col-md-8">
                     <c:if test="${requestScope.user==null}">
-                        <button id="create" name="create" class="btn btn-success">Create</button>
+                        <button id="createButton" name="createButton" class="btn btn-success">Create</button>
                     </c:if>
                     <c:if test="${requestScope.user!=null}">
                         <button id="update" name="update" class="btn btn-primary">Update</button>
