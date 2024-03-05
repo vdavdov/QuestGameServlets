@@ -2,6 +2,7 @@ package com.javarush.khmelov.lesson17.controller;
 
 import com.javarush.khmelov.lesson17.cmd.Command;
 import com.javarush.khmelov.lesson17.config.Winter;
+import com.javarush.khmelov.lesson17.entity.Role;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -24,6 +25,7 @@ public class FrontController extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         httpResolver = Winter.find(HttpResolver.class);
+        config.getServletContext().setAttribute("roles", Role.values());
     }
 
     @Override

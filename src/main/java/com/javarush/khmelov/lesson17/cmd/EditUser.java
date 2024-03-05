@@ -45,6 +45,6 @@ public class EditUser implements Command {
             user.setId(Long.parseLong(req.getParameter("id")));
             userService.update(user);
         }
-        return getPage();
+        return getPage()+"?id="+user.getId();
     }
 }
