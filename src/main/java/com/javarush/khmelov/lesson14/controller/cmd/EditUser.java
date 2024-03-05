@@ -45,6 +45,6 @@ public class EditUser implements Command {
             user.setId(Long.parseLong(req.getParameter("id")));
             userService.update(user);
         }
-        return "redirect:/edit-user?id=" + user.getId();
+        return "cmd-edit-user?id=" + user.getId();
     }
 }

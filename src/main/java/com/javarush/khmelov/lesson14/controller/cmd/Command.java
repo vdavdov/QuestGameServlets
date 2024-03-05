@@ -24,7 +24,12 @@ public interface Command {
     }
 
     private String getPage() {
-        String snakeName = this.getClass().getSimpleName().chars()
+        String string = this.getClass().getSimpleName();
+        return convertCamelCaseToSnakeStyle(string);
+    }
+
+    private static String convertCamelCaseToSnakeStyle(String string) {
+        String snakeName = string.chars()
                 .mapToObj(s -> String.valueOf((char) s))
                 .flatMap(s -> s.matches("[A-Z]")
                         ? Stream.of("-", s)
