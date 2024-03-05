@@ -13,22 +13,14 @@ public class HttpCommandResolver {
 
     private final Map<String, Command> commandMap = new HashMap<>();
 
-    public Command resolve(String url) {
-        Matcher matcher = Pattern.compile("[a-z-]+").matcher(url);
-        String key = "home";
-        if (matcher.find()) {
-            key = matcher.group();
-        }
-        if (commandMap.containsKey(key)) {
-            return commandMap.get(key);
-        }
-        String simpleName = convertSnakeStyleToCamelCase(key);
-        Command command = getHttpCommand(simpleName);
-        commandMap.put(key, command);
-        return command;
+    @SneakyThrows
+    public static Command getHttpCommand(String simpleName) {
+        String className = "com.javarush.khmelov.lesson14.controller.cmd." + simpleName;
+        Class<?> aClass = Class.forName(className);
+        return (Command) Winter.find(aClass);
     }
 
-    private static String convertSnakeStyleToCamelCase(String input) {
+    public static String convertDotStyleToCamelCase(String input) {
         StringBuilder result = new StringBuilder();
         boolean capitalizeNext = true;
         for (char c : input.toCharArray()) {
@@ -46,10 +38,18 @@ public class HttpCommandResolver {
         return result.toString();
     }
 
-    @SneakyThrows
-    public static Command getHttpCommand(String simpleName) {
-        String className = "com.javarush.khmelov.lesson14.controller.cmd." + simpleName;
-        Class<?> aClass = Class.forName(className);
-        return (Command) Winter.find(aClass);
+    public Command resolve(String url) {
+        Matcher matcher = Pattern.compile("[a-z-]+").matcher(url);
+        String key = "home";
+        if (matcher.find()) {
+            key = matcher.group();
+        }
+        if (commandMap.containsKey(key)) {
+            return commandMap.get(key);
+        }
+        String simpleName = convertDotStyleToCamelCase(key);
+        Command command = getHttpCommand(simpleName);
+        commandMap.put(key, command);
+        return command;
     }
 }
