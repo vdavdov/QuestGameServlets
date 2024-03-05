@@ -1,4 +1,4 @@
-package com.javarush.khmelov.lesson14.config;
+package com.javarush.khmelov.lesson17.config;
 
 import lombok.SneakyThrows;
 
