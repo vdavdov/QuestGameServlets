@@ -1,7 +1,6 @@
 package com.javarush.khmelov.lesson14.controller;
 
 import com.javarush.khmelov.lesson14.config.Winter;
-import com.javarush.khmelov.lesson14.controller.cmd.Command;
 import lombok.SneakyThrows;
 
 import java.util.HashMap;
@@ -9,30 +8,26 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HttpCommandResolver {
+public class CommandFinder {
 
     private final Map<String, Command> dymamicCommandMap = new HashMap<>();
 
     @SneakyThrows
     public Command resolve(String url) {
         Matcher matcher = Pattern.compile("[a-z-]+").matcher(url);
-        String key = "index";
-        if (matcher.find()) {
-            key = matcher.group();
+        if (!matcher.find()) {
+            return null;
         }
+        String key = matcher.group();
         if (dymamicCommandMap.containsKey(key)) {
             return dymamicCommandMap.get(key);
         }
         String simpleName = convertDotStyleToCamelCase(key);
-        Command command = getHttpCommand(simpleName);
-        dymamicCommandMap.put(key, command);
-        return command;
-    }
-
-    public static Command getHttpCommand(String simpleName) throws ClassNotFoundException {
         String className = "com.javarush.khmelov.lesson14.controller.cmd." + simpleName;
         Class<?> aClass = Class.forName(className);
-        return (Command) Winter.find(aClass);
+        Command command = (Command) Winter.find(aClass);
+        dymamicCommandMap.put(key, command);
+        return command;
     }
 
     public static String convertDotStyleToCamelCase(String input) {

@@ -1,35 +1,35 @@
-package com.javarush.khmelov.lesson14.controller.cmd;
+package com.javarush.khmelov.lesson14.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.rmi.UnexpectedException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public interface Command {
 
     default String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        return getJspView();
+        return jsp();
     }
 
-    default String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        return "redirect:/" + getPage();
+    default void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect(getUrlPatternFromClass());
     }
 
-    default String getJspView() {
-        String page = getPage();
-        return "/WEB-INF/" + page + ".jsp";
+    default String jsp() {
+        String urlPattern = getUrlPatternFromClass();
+        return "/WEB-INF/" + urlPattern + ".jsp";
     }
 
-    private String getPage() {
+    private String getUrlPatternFromClass() {
         String snakeName = this.getClass().getSimpleName().chars()
                 .flatMap(s -> s <= 'Z' && s >= 'A'
                         ? IntStream.of('-', s)
                         : IntStream.of(s))
-                .mapToObj(s -> String.valueOf((char) s)).collect(Collectors.joining())
-                .toLowerCase();
+                .mapToObj(s -> String.valueOf((char) s)).collect(Collectors.joining());
         return snakeName.startsWith("-") ? snakeName.substring(1) : snakeName;
     }
 
