@@ -1,6 +1,5 @@
 package com.javarush.khmelov.lesson14.controller;
 
-import com.javarush.khmelov.lesson14.config.Winter;
 import com.javarush.khmelov.lesson14.entity.Role;
 import com.javarush.khmelov.lesson14.entity.User;
 import com.javarush.khmelov.lesson14.service.UserService;
@@ -18,8 +17,7 @@ import java.util.Optional;
 @WebServlet("/edit-user")
 public class EditUserServlet extends HttpServlet {
 
-    private final UserService userService = Winter.find(UserService.class);
-
+    private final UserService userService = UserService.USER_SERVICE;
 
     @Override
     public void init(ServletConfig config) throws ServletException {

@@ -1,6 +1,5 @@
 package com.javarush.khmelov.lesson14.controller;
 
-import com.javarush.khmelov.lesson14.config.Winter;
 import com.javarush.khmelov.lesson14.entity.User;
 import com.javarush.khmelov.lesson14.service.UserService;
 import jakarta.servlet.RequestDispatcher;
@@ -13,17 +12,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 
-@WebServlet(value = "/list-user")
+@WebServlet("/list-user")
 public class ListUserServlet extends HttpServlet {
 
-    private final UserService userService= Winter.find(UserService.class);
+    private final UserService userService = UserService.USER_SERVICE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Collection<User> users = userService.getAll();
         req.setAttribute("users", users);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/list-user.jsp");
-        System.out.println(this.getServletName());
         requestDispatcher.forward(req,resp);
     }
 }
