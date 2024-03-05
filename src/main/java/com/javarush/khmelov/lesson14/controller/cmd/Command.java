@@ -31,7 +31,9 @@ public interface Command {
                         : Stream.of(s))
                 .collect(Collectors.joining())
                 .toLowerCase();
-        return snakeName.startsWith("-") ? snakeName.substring(1) : snakeName;
+        return snakeName.startsWith("-")
+                ? snakeName.substring(1)
+                : snakeName;
     }
 
 }

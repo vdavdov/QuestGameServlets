@@ -2,7 +2,7 @@
 <%@include file="head.jsp"%>
 <body>
 <c:forEach var="user" items="${requestScope.users}">
-    <a href="edit-user?id=${user.id}">${user.login}</a>
+    <a href="cmd-edit-user?id=${user.id}">${user.login}</a>
 </c:forEach>
 
 </body>
