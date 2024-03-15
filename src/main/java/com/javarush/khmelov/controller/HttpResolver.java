@@ -1,7 +1,7 @@
-package com.javarush.khmelov.lesson17.controller;
+package com.javarush.khmelov.controller;
 
-import com.javarush.khmelov.lesson17.cmd.Command;
-import com.javarush.khmelov.lesson17.config.Winter;
+import com.javarush.khmelov.cmd.Command;
+import com.javarush.khmelov.config.Winter;
 import lombok.SneakyThrows;
 
 import java.util.HashMap;

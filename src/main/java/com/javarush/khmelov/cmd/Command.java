@@ -1,4 +1,4 @@
-package com.javarush.khmelov.lesson17.cmd;
+package com.javarush.khmelov.cmd;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,8 +1,7 @@
-package com.javarush.khmelov.lesson17.service;
+package com.javarush.khmelov.service;
 
-import com.javarush.khmelov.lesson17.entity.User;
-import com.javarush.khmelov.lesson17.repository.Repository;
-import com.javarush.khmelov.lesson17.repository.UserRepository;
+import com.javarush.khmelov.entity.User;
+import com.javarush.khmelov.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.Optional;
