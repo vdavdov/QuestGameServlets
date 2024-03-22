@@ -3,10 +3,12 @@
 <html>
 <head>
     <title>Alien Quest</title>
+    <link type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.png" rel="shortcut icon">
+    <style><%@include file="/static/styles-quest.css"%></style>
 </head>
 <body>
 <c:set var="score" value="${sessionScope.get('score')}"/>
-    <form method="post">
+    <form method="post" id="question-form">
         <p><c:choose>
             <c:when test="${score == 0}">
                 Ты потерял память. Принять вызов НЛО?
@@ -49,8 +51,8 @@
         </p>
         <p><input type="submit" name="answer" value="Ответить"></p>
     </form>
-    <div>
-        <p>Инфориусcc: </p>
+    <div id="stats">
+        <p>Информация: </p>
         <p>Ip address: ${sessionScope.get("address")}</p>
         <p>Name: ${sessionScope.get("name")}</p>
         <p>ID: ${sessionScope.get("id")}</p>

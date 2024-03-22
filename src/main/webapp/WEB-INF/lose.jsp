@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Вы проиграли</title>
+    <link type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.png" rel="shortcut icon">
 </head>
 <body>
     <c:set var="name" value="${sessionScope.get('name')}"/>

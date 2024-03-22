@@ -11,7 +11,6 @@ import lombok.Getter;
 
 import java.io.IOException;
 
-@Getter
 @WebServlet(name = "HomeServlet", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
     private final Service userService = UserService.getInstance();
