@@ -2,12 +2,34 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <c:set var="score" value="${sessionScope.get('score')}"/>
     <title>Alien Quest</title>
     <link type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.png" rel="shortcut icon">
     <style><%@include file="/static/styles-quest.css"%></style>
+    <style>
+        <c:choose>
+        <c:when test="${score == 0}">
+        body {
+            background: url("/static/background-first.jpg") no-repeat;
+            background-size: cover;
+        }
+        </c:when>
+        <c:when test="${score == 1}">
+        body {
+            background: url("/static/background-second.jpg") no-repeat;
+            background-size: cover;
+        }
+        </c:when>
+        <c:when test="${score == 2}">
+        body {
+            background: url("/static/background-third.jpg") no-repeat;
+            background-size: cover;
+        }
+        </c:when>
+        </c:choose>
+    </style>
 </head>
 <body>
-<c:set var="score" value="${sessionScope.get('score')}"/>
     <form method="post" id="question-form">
         <p><c:choose>
             <c:when test="${score == 0}">
@@ -21,7 +43,7 @@
             </c:when>
             <c:otherwise>Все плохо...</c:otherwise>
         </c:choose></p>
-        <p><input type="radio" name="answer" value="true">
+        <p><label><input type="radio" name="answer" value="true">
             <c:choose>
                 <c:when test="${score == 0}">
                     Принять вызов НЛО
@@ -34,8 +56,8 @@
                 </c:when>
                 <c:otherwise>Все плохо...</c:otherwise>
             </c:choose>
-        </p>
-        <p><input type="radio" name="answer" value="false">
+        </label></p>
+        <p><label><input type="radio" name="answer" value="false">
             <c:choose>
                 <c:when test="${score == 0}">
                     Отклонить вызов
@@ -48,8 +70,8 @@
                 </c:when>
                 <c:otherwise>Все плохо...</c:otherwise>
             </c:choose>
-        </p>
-        <p><input type="submit" name="answer" value="Ответить"></p>
+        </label></p>
+        <p><input type="submit" name="answer" class="buttonB" value="Ответить"></p>
     </form>
     <div id="stats">
         <p>Информация: </p>
