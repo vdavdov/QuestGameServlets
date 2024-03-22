@@ -8,19 +8,12 @@ public class User {
     private int score;
     private String ipAddress;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", score=" + score +
-                ", ipAddress='" + ipAddress + '\'' +
-                '}';
-    }
-
     public User(String name, String ipAddress) {
         this.name = name;
         this.ipAddress = ipAddress;
+    }
+    public void nextLevel() {
+        setScore(score + 1);
     }
 
     public String getIpAddress() {
@@ -70,5 +63,14 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", score=" + score +
+                ", ipAddress='" + ipAddress + '\'' +
+                '}';
     }
 }

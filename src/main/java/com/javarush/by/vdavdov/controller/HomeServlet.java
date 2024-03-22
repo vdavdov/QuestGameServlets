@@ -14,7 +14,7 @@ import java.io.IOException;
 @Getter
 @WebServlet(name = "HomeServlet", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
-    private final Service userService = new UserService(new UserRepository());
+    private final Service userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

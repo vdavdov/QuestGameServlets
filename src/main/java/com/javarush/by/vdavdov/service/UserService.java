@@ -2,15 +2,23 @@ package com.javarush.by.vdavdov.service;
 
 import com.javarush.by.vdavdov.entity.User;
 import com.javarush.by.vdavdov.repository.Repository;
+import com.javarush.by.vdavdov.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
 public class UserService implements Service {
-    private final Repository userRepository;
+    private static Repository userRepository;
+    private static Service userService;
 
-    public UserService(Repository userRepository) {
-        this.userRepository = userRepository;
+    private UserService() {
+        userRepository = new UserRepository();
+    }
+    public static Service getInstance() {
+        if (userService == null) {
+            userService = new UserService();
+        }
+        return userService;
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @WebServlet(name = "QuestServlet", urlPatterns = {"/quest/*"})
 public class QuestServlet extends HttpServlet {
-    private Service userService = new HomeServlet().getUserService();
+    private Service userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
