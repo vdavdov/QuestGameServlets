@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlienQuestRepository {
+    //Не смог применить
     private final List<String> questions = new ArrayList<>();
     private final List<String> answers = new ArrayList<>();
     public AlienQuestRepository() {
