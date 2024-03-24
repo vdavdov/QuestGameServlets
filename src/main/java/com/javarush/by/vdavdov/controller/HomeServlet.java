@@ -1,6 +1,7 @@
 package com.javarush.by.vdavdov.controller;
 
 import com.javarush.by.vdavdov.entity.User;
+import com.javarush.by.vdavdov.repository.UserRepository;
 import com.javarush.by.vdavdov.service.Service;
 import com.javarush.by.vdavdov.service.UserService;
 import jakarta.servlet.ServletException;
@@ -16,7 +17,7 @@ import java.io.IOException;
 
 @WebServlet(name = "HomeServlet", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
-    private final Service userService = UserService.getInstance();
+    private final Service userService = new UserService(UserRepository.getInstance());
     static final Logger logger = LogManager.getLogger(HomeServlet.class);
 
     @Override
@@ -27,7 +28,7 @@ public class HomeServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         logger.info("Post to /home from {}", req.getRemoteAddr());
         //create session and get address:port
         HttpSession session = req.getSession();

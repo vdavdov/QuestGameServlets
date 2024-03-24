@@ -1,6 +1,7 @@
 package com.javarush.by.vdavdov.controller;
 
 import com.javarush.by.vdavdov.entity.User;
+import com.javarush.by.vdavdov.repository.UserRepository;
 import com.javarush.by.vdavdov.service.Service;
 import com.javarush.by.vdavdov.service.UserService;
 import jakarta.servlet.ServletException;
@@ -16,7 +17,7 @@ import java.io.IOException;
 
 @WebServlet(name = "QuestServlet", urlPatterns = {"/quest/*"})
 public class QuestServlet extends HttpServlet {
-    private Service userService = UserService.getInstance();
+    private final Service userService = new UserService(UserRepository.getInstance());
     static final Logger logger = LogManager.getLogger(HomeServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,7 +34,7 @@ public class QuestServlet extends HttpServlet {
         long id = (long) session.getAttribute("id");
         User user = userService.get(id).get();
         //Get answer type from parameter
-        Boolean answer = Boolean.valueOf(req.getParameter("answer"));
+        boolean answer = Boolean.parseBoolean(req.getParameter("answer"));
         // true -> score + 1 -> true -> redirect to win
         //                   -> false -> continue game
         // false -> remove score and redirect to lose

@@ -11,8 +11,15 @@ import java.util.concurrent.atomic.AtomicLong;
 public class UserRepository implements Repository {
     private final Map<Long, User> userMap = new HashMap<>();
     private final AtomicLong id = new AtomicLong(0L);
+    private static Repository userRepository;
 
     public UserRepository() {
+    }
+    public static Repository getInstance() {
+        if (userRepository == null) {
+            userRepository = new UserRepository();
+        }
+        return userRepository;
     }
 
     @Override
