@@ -1,7 +1,6 @@
 package com.javarush.by.vdavdov.controller;
 
 import com.javarush.by.vdavdov.entity.User;
-import com.javarush.by.vdavdov.repository.UserRepository;
 import com.javarush.by.vdavdov.service.Service;
 import com.javarush.by.vdavdov.service.UserService;
 import jakarta.servlet.ServletException;
@@ -17,7 +16,7 @@ import java.io.IOException;
 
 @WebServlet(name = "QuestServlet", urlPatterns = {"/quest/*"})
 public class QuestServlet extends HttpServlet {
-    private final Service userService = new UserService(UserRepository.getInstance());
+    private final Service userService = UserService.getInstance();
     static final Logger logger = LogManager.getLogger(HomeServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

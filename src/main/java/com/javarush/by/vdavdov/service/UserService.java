@@ -8,11 +8,18 @@ import java.util.Collection;
 import java.util.Optional;
 
 public class UserService implements Service {
-    private final Repository userRepository;
-    public UserService(Repository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private static Repository userRepository;
+    private static Service userService;
 
+    private UserService() {
+        userRepository = new UserRepository();
+    }
+    public static Service getInstance() {
+        if (userService == null) {
+            userService = new UserService();
+        }
+        return userService;
+    }
 
     @Override
     public void create(User user) {
