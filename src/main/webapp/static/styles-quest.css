@@ -16,6 +16,7 @@ p {
     color: white;
 }
 input {
+    border-radius: 5px;
     border: none;
     border-bottom: 5px solid #ffffff;
     padding-bottom: 10px;
