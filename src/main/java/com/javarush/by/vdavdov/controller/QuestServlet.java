@@ -33,11 +33,12 @@ public class QuestServlet extends HttpServlet {
         long id = (long) session.getAttribute("id");
         User user = userService.get(id).get();
         //Get answer type from parameter
-        boolean answer = Boolean.parseBoolean(req.getParameter("answer"));
+        int answer = Integer.parseInt(req.getParameter("answer"));
         // true -> score + 1 -> true -> redirect to win
         //                   -> false -> continue game
         // false -> remove score and redirect to lose
-        if (answer) {
+
+        if (answer == 1) {
             user.nextLevel();
             logger.info("Score user {} upped", req.getRemoteAddr());
             if (user.getScore() > 2) {
@@ -47,10 +48,12 @@ public class QuestServlet extends HttpServlet {
                 session.setAttribute("score", user.getScore());
                 resp.sendRedirect("/quest");
             }
-        } else {
+        } else if (answer == 0) {
             logger.info("User {} defeat", req.getRemoteAddr());
             session.removeAttribute("score");
             resp.sendRedirect("/lose");
+        } else {
+            resp.sendRedirect("/quest");
         }
     }
 }

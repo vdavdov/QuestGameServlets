@@ -43,7 +43,7 @@
             </c:when>
             <c:otherwise>Все плохо...</c:otherwise>
         </c:choose></p>
-        <p><label><input type="radio" name="answer" value="true">
+        <p><label><input type="radio" name="answer" value="1">
             <c:choose>
                 <c:when test="${score == 0}">
                     Принять вызов НЛО
@@ -57,7 +57,7 @@
                 <c:otherwise>Все плохо...</c:otherwise>
             </c:choose>
         </label></p>
-        <p><label><input type="radio" name="answer" value="false">
+        <p><label><input type="radio" name="answer" value="0">
             <c:choose>
                 <c:when test="${score == 0}">
                     Отклонить вызов
@@ -71,7 +71,8 @@
                 <c:otherwise>Все плохо...</c:otherwise>
             </c:choose>
         </label></p>
-        <p><input type="submit" name="answer" class="buttonB" value="Ответить"></p>
+<%--        <p><input type="submit" name="answer" class="buttonB" value="2" id="btn"></p>--%>
+        <button type="submit" name="answer" class="buttonB" value="2">Ответить</button>
     </form>
     <div id="stats">
         <p>Информация: </p>
