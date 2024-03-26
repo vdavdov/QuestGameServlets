@@ -71,7 +71,6 @@
                 <c:otherwise>Все плохо...</c:otherwise>
             </c:choose>
         </label></p>
-<%--        <p><input type="submit" name="answer" class="buttonB" value="2" id="btn"></p>--%>
         <button type="submit" name="answer" class="buttonB" value="2">Ответить</button>
     </form>
     <div id="stats">

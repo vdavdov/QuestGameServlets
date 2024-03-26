@@ -22,7 +22,7 @@ public class LoseServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         //when restart remove score
         HttpSession session = req.getSession();
         session.removeAttribute("score");

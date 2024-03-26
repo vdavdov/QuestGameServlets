@@ -1,12 +1,21 @@
 package com.javarush.by.vdavdov.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 
 public class User {
+    @Getter
+    @Setter
     private Long id;
+    @Getter
+    @Setter
     private String name;
+    @Setter
+    @Getter
     private int score;
-    private String ipAddress;
+    private final String ipAddress;
 
     public User(String name, String ipAddress) {
         this.name = name;
@@ -14,42 +23,6 @@ public class User {
     }
     public void nextLevel() {
         setScore(score + 1);
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public User(String name) {
-        this.name = name;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override

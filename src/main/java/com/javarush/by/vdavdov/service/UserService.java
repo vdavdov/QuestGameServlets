@@ -4,7 +4,6 @@ import com.javarush.by.vdavdov.entity.User;
 import com.javarush.by.vdavdov.repository.Repository;
 import com.javarush.by.vdavdov.repository.UserRepository;
 
-import java.util.Collection;
 import java.util.Optional;
 
 public class UserService implements Service {
@@ -24,21 +23,6 @@ public class UserService implements Service {
     @Override
     public void create(User user) {
         userRepository.create(user);
-    }
-
-    @Override
-    public void update(User user) {
-        userRepository.update(user);
-    }
-
-    @Override
-    public void delete(User user) {
-        userRepository.delete(user);
-    }
-
-    @Override
-    public Collection<User> getAll() {
-        return userRepository.getAll();
     }
 
     @Override
