@@ -7,10 +7,10 @@ import com.javarush.by.vdavdov.repository.UserRepository;
 import java.util.Optional;
 
 public class UserService implements Service {
-    private static Repository userRepository;
+    public static Repository userRepository;
     private static Service userService;
 
-    private UserService() {
+    public UserService() {
         userRepository = new UserRepository();
     }
     public static Service getInstance() {
