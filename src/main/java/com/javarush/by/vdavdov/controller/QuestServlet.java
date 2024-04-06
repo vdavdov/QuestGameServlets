@@ -1,8 +1,9 @@
 package com.javarush.by.vdavdov.controller;
 
+import com.javarush.by.vdavdov.constants.Constants;
 import com.javarush.by.vdavdov.entity.User;
-import com.javarush.by.vdavdov.service.Service;
 import com.javarush.by.vdavdov.service.UserService;
+import com.javarush.by.vdavdov.service.UserUserServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,15 +15,18 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-@WebServlet(name = "QuestServlet", urlPatterns = {"/quest/*"})
+import static com.javarush.by.vdavdov.constants.Constants.*;
+
+@WebServlet(urlPatterns = QUEST_SERVLET)
 public class QuestServlet extends HttpServlet {
-    private final Service userService = UserService.getInstance();
+    private final UserService userService = UserUserServiceImpl.getInstance();
     static final Logger logger = LogManager.getLogger(HomeServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Get to /quest from {}", req.getRemoteAddr());
-        //View quest.jsp
-        req.getRequestDispatcher("WEB-INF/quest.jsp").forward(req, resp);
+
+        req.getRequestDispatcher(QUEST_JSP).forward(req, resp);
     }
 
     @Override
@@ -43,17 +47,17 @@ public class QuestServlet extends HttpServlet {
             logger.info("Score user {} upped", req.getRemoteAddr());
             if (user.getScore() > 2) {
                 logger.info("User {} win", req.getRemoteAddr());
-                resp.sendRedirect("/win");
+                resp.sendRedirect(WIN_SERVLET);
             } else {
                 session.setAttribute("score", user.getScore());
-                resp.sendRedirect("/quest");
+                resp.sendRedirect(QUEST_SERVLET);
             }
         } else if (answer == 0) {
             logger.info("User {} defeat", req.getRemoteAddr());
             session.removeAttribute("score");
-            resp.sendRedirect("/lose");
+            resp.sendRedirect(LOSE_SERVLET);
         } else {
-            resp.sendRedirect("/quest");
+            resp.sendRedirect(QUEST_SERVLET);
         }
     }
 }

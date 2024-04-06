@@ -3,7 +3,7 @@ package service;
 import com.javarush.by.vdavdov.entity.User;
 import com.javarush.by.vdavdov.repository.Repository;
 import com.javarush.by.vdavdov.repository.UserRepository;
-import com.javarush.by.vdavdov.service.UserService;
+import com.javarush.by.vdavdov.service.UserUserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,21 +12,21 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UserServiceTest {
-    private UserService userService;
+public class UserUserServiceImplTest {
+    private UserUserServiceImpl userServiceImpl;
     private Repository userRepository;
 
     @BeforeEach
     public void setUp() {
-        userService = new UserService();
+        userServiceImpl = new UserUserServiceImpl();
         userRepository = Mockito.mock(UserRepository.class);
-        UserService.userRepository = userRepository;
+        UserUserServiceImpl.userRepository = userRepository;
     }
 
     @Test
     public void createUser_whenUserIsValid_shouldCreateUser() {
         User user = new User("testUser", "127.0.0.1");
-        userService.create(user);
+        userServiceImpl.create(user);
 
         Mockito.verify(userRepository).create(user);
     }
@@ -37,7 +37,7 @@ public class UserServiceTest {
         User user = new User("testUser", "127.0.0.1");
         Mockito.when(userRepository.get(id)).thenReturn(Optional.of(user));
 
-        Optional<User> actualUser = userService.get(id);
+        Optional<User> actualUser = userServiceImpl.get(id);
 
         assertEquals(Optional.of(user), actualUser);
     }
@@ -47,7 +47,7 @@ public class UserServiceTest {
         long id = 1L;
         Mockito.when(userRepository.get(id)).thenReturn(Optional.empty());
 
-        Optional<User> actualUser = userService.get(id);
+        Optional<User> actualUser = userServiceImpl.get(id);
 
         assertEquals(Optional.empty(), actualUser);
     }

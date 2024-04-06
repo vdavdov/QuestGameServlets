@@ -1,4 +1,4 @@
-<%@ page import="com.javarush.by.vdavdov.out.PrologOut" %>
+<%@ page import="com.javarush.by.vdavdov.constants.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
@@ -16,12 +16,12 @@
 <body>
     <div id="prolog">
         <h1>Пролог</h1>
-        <p><%= new PrologOut().getTextForProlog()%>
+        <p><%= Constants.textForProlog%>
         </p>
     </div>
     <div id="meetup">
         <h1>Знакомство с командой</h1>
-        <p><%= new PrologOut().teamMeetUp()%></p>
+        <p><%= Constants.teamMeetUp%></p>
     </div>
     <form method="post">
         <label>

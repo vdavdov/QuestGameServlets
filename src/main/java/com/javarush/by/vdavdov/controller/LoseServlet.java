@@ -11,14 +11,17 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-@WebServlet(name = "LoseServlet", urlPatterns = "/lose")
+import static com.javarush.by.vdavdov.constants.Constants.*;
+
+@WebServlet(urlPatterns = LOSE_SERVLET)
 public class LoseServlet extends HttpServlet {
     static final Logger logger = LogManager.getLogger(LoseServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Пользователь {} проиграл", req.getRemoteAddr());
-        //View lose.jsp
-        req.getRequestDispatcher("WEB-INF/lose.jsp").forward(req, resp);
+
+        req.getRequestDispatcher(LOSE_JSP).forward(req, resp);
     }
 
     @Override
@@ -28,6 +31,6 @@ public class LoseServlet extends HttpServlet {
         session.removeAttribute("score");
         logger.info("User's {} score remove success, game restarted", req.getRemoteAddr());
         //redirect to home
-        resp.sendRedirect("/home");
+        resp.sendRedirect(HOME_SERVLET);
     }
 }

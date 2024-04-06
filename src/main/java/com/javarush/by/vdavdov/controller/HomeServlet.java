@@ -1,8 +1,8 @@
 package com.javarush.by.vdavdov.controller;
 
 import com.javarush.by.vdavdov.entity.User;
-import com.javarush.by.vdavdov.service.Service;
 import com.javarush.by.vdavdov.service.UserService;
+import com.javarush.by.vdavdov.service.UserUserServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,16 +14,18 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-@WebServlet(name = "HomeServlet", urlPatterns = "/home")
+import static com.javarush.by.vdavdov.constants.Constants.*;
+
+@WebServlet(urlPatterns = HOME_SERVLET)
 public class HomeServlet extends HttpServlet {
-    private final Service userService = UserService.getInstance();
+    private final UserService userService = UserUserServiceImpl.getInstance();
     static final Logger logger = LogManager.getLogger(HomeServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Get to /home from {}", req.getRemoteAddr());
-        //View start-page.jsp
-        req.getRequestDispatcher("WEB-INF/start-page.jsp").forward(req, resp);
+
+        req.getRequestDispatcher(START_JSP).forward(req, resp);
     }
 
     @Override
@@ -40,8 +42,8 @@ public class HomeServlet extends HttpServlet {
         User newUser = new User(name, address);
         userService.create(newUser);
         logger.info("User create success userName:{}, userId:{}: "
-                ,newUser.getName()
-                ,newUser.getId());
+                , newUser.getName()
+                , newUser.getId());
 
         //set attribute in session
         session.setAttribute("address", address);
@@ -49,7 +51,7 @@ public class HomeServlet extends HttpServlet {
         session.setAttribute("id", newUser.getId());
         session.setAttribute("score", newUser.getScore());
 
-        resp.sendRedirect("/quest");
+        resp.sendRedirect(QUEST_SERVLET);
     }
 
 }
