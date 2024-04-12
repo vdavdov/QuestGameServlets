@@ -1,9 +1,5 @@
 package service;
 
-import com.javarush.by.vdavdov.entity.User;
-import com.javarush.by.vdavdov.repository.Repository;
-import com.javarush.by.vdavdov.repository.UserRepository;
-import com.javarush.by.vdavdov.service.UserUserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
