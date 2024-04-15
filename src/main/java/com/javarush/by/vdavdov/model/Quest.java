@@ -1,13 +1,22 @@
 package com.javarush.by.vdavdov.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Quest implements Model {
-    @Override
-    public void setId(long id) {
 
-    }
+    private long id;
 
-    @Override
-    public long getId() {
-        return 0;
-    }
+    private String name;
+
+    private List<String> questionsList;
+
 }

@@ -1,14 +1,19 @@
 package com.javarush.by.vdavdov.constant;
 
+import java.net.URI;
+import java.nio.file.Paths;
+import java.util.Objects;
+
 public class Constants {
-    //redirects
-    public static final String GO_EMPTY_SLASH = "/";
-    public static final String GO_HOME = "/home";
-    public static final String GO_IN_DEV = "/in-dev";
-    //paths
-    public static final String PATH_TO_JSP = "WEB-INF/view/%s.jsp";
+    // paths
     public static final String PATH_TO_FAVICON = "/static/favicon.png";
-    //logger
+    public static final String PATH_TO_JSP = "WEB-INF/view/%s.jsp";
+    public static final String SEND_PATH_TO_NEXT_QUESTION = "game?questId=%d&questionId=%d&answer_value=%b";
+    public static final String PATH_TO_WEB_INF_CONFIG = Paths.get(URI.create(Objects.requireNonNull(Constants.class.getResource("/"))
+            .toString())).getParent().toString() + "/config/";
+    public static final String FILE_QUEST_LIST_YAML = "questionsList.yml";
+    public static final String FILE_ANSWERS_LIST_YAML = "answersList.yml";
+    // logger
     public static final String NO_QUEST = "Quest with ID %d does not exist";
     public static final String NO_QUEST_FOR_LOGGER = "Quest with ID {} does not exist";
     public static final String WRONG_DATA = "No answer or wrong data";
@@ -20,5 +25,13 @@ public class Constants {
     public static final String RESULT_MESSAGE = "resultMessage";
     public static final String ANSWER_VALUE = "answerValue";
     public static final String ANSWER_VALUE_FROM_JSP = "answer_value";
+    // redirects
+    public static final String GO_EMPTY_SLASH = "/";
+    public static final String GO_HOME = "/home";
+    public static final String GO_IN_DEV = "/in-dev";
+    public static final String GO_QUESTS = "/quests";
+    public static final String GO_GAME = "/game";
+    public static final String GO_PLAY_GAME = "play-game";
+    public static final String GO_QUEST_LIST = "quest-list";
 
 }
