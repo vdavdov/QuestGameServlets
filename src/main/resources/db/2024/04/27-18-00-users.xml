@@ -13,9 +13,6 @@
             <column name="name" type="varchar(256)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ipadress" type="varchar(256)">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
     </changeSet>
 

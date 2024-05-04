@@ -9,5 +9,5 @@
     </preConditions>
 
     <include file="/db/2024/04/27-18-00-users.xml" relativeToChangelogFile="false"/>
-
+    <include file="db/2024/04/02-05-22-10-add-demo-users.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
