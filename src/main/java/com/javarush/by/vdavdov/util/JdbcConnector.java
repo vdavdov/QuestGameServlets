@@ -1,6 +1,9 @@
 package com.javarush.by.vdavdov.util;
 
+import com.javarush.by.vdavdov.model.User;
+
 import java.sql.*;
+import java.time.LocalDate;
 
 public class JdbcConnector {
     public static final String SQL_SELECT_BY_ID =
@@ -23,13 +26,9 @@ public class JdbcConnector {
                     VALUES (?, ?)
                     """;
     public static void main(String[] args) throws SQLException {
-        try (Connection connection = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/quest_game",
-                "postgres",
-                "postgres")) {
-
-        } catch (SQLException e) {
-
-        }
+        UserDao userDao = new UserDao();
+        userDao.init();
+        User bot = userDao.createUser(new User(7, "Bot", 4, LocalDate.now().atStartOfDay()));
+        System.out.println(bot);
     }
 }

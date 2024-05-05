@@ -1,11 +1,9 @@
 package com.javarush.by.vdavdov.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -14,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name="users")
+@ToString
 public class User {
     @Id
     @GeneratedValue
@@ -23,7 +22,8 @@ public class User {
     private String name;
     @Column(name="level", nullable = false)
     private int level;
-    @Column(name="createdDate", nullable = false)
-    private Date createdDate;
+    //todo
+//    @Column(name="created_date", nullable = false)
+//    private LocalDateTime createdDate;
 
 }

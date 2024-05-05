@@ -13,6 +13,12 @@
             <column name="name" type="varchar(256)">
                 <constraints nullable="false"/>
             </column>
+            <column name="level" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
