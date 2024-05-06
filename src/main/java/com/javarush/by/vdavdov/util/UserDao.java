@@ -27,7 +27,7 @@ public class UserDao {
         }
     }
 
-    public User getUser(long id) {
+    public User getUserById(long id) {
         try (Session session = sessionFactory.openSession()) {
             User user = session.get(User.class, id);
             return user;
@@ -38,7 +38,7 @@ public class UserDao {
         try (EntityManager entityManager = sessionFactory.createEntityManager()) {
             EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.merge(user);
+            entityManager.persist(user);
             transaction.commit();
             return user;
         }
