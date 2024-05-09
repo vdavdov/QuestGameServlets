@@ -1,9 +1,13 @@
 package com.javarush.by.vdavdov.util;
 
 import com.javarush.by.vdavdov.model.User;
+import org.hibernate.Session;
+import org.hibernate.query.MutationQuery;
+import org.hibernate.query.Query;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.stream.Stream;
 
 public class JdbcConnector {
     public static final String SQL_SELECT_BY_ID =
@@ -26,12 +30,11 @@ public class JdbcConnector {
                     VALUES (?, ?)
                     """;
     public static void main(String[] args) throws SQLException {
-        UserDao userDao = new UserDao();
-        userDao.init();
-        User bot = userDao.createUser(new User("Bot", 4, LocalDate.now()));
-        System.out.println(bot);
-//        userDao.deleteUser(new User(6, "Bot", 4, LocalDate.now()));
-//        User anna = userDao.updateUser(new User(8, "Anna", 4, LocalDate.now()));
-//        System.out.println(anna);
+        Session session = MySessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        MutationQuery mutationQuery = session.createMutationQuery("update User set level = level + 1");
+        mutationQuery.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
     }
 }

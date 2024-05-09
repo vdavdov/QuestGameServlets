@@ -1,22 +1,28 @@
 package com.javarush.by.vdavdov.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
-@Data
-@Builder
+@Setter
+@Getter
+@Entity
+@Table(name = "quests")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Quest implements Model {
-
+    @ManyToOne
+    @Column(nullable = false, name = "users_id")
+    private User author;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    @Column(nullable = false, name = "name")
     private String name;
-
+    @Column(nullable = false, name = "text")
+    private String text;
+    @Transient
     private List<String> questionsList;
 
 }
