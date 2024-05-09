@@ -5,32 +5,27 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import java.util.List;
 
 public class UserDao {
-    private SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
 
-    public void init() {
-        this.sessionFactory = new Configuration()
-                .configure()
-                .addAnnotatedClass(User.class)
-                .buildSessionFactory();
+    public UserDao() {
+        sessionFactory = MySessionFactory.getSessionFactory();
     }
 
     public List<User> getAllUsers() {
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("from User", User.class);
-            return query.list();
+            Query<User> query = session.createQuery("from User", User.class);
+            return query.getResultList();
         }
     }
 
     public User getUserById(long id) {
         try (Session session = sessionFactory.openSession()) {
-            User user = session.get(User.class, id);
-            return user;
+            return session.get(User.class, id);
         }
     }
 
