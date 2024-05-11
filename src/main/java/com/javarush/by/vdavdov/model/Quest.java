@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Setter
 @Getter
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Quest implements Model {
     @ManyToOne
-    @Column(nullable = false, name = "users_id")
+    @JoinColumn(nullable = false, name = "users_id")
     private User author;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +26,16 @@ public class Quest implements Model {
     @Transient
     private List<String> questionsList;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Quest quest = (Quest) o;
+        return id == quest.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

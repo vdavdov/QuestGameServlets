@@ -1,12 +1,17 @@
 package com.javarush.by.vdavdov.util;
 
 import com.javarush.by.vdavdov.model.User;
+import jakarta.persistence.NamedQuery;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 import org.hibernate.query.Query;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class JdbcConnector {
@@ -31,10 +36,12 @@ public class JdbcConnector {
                     """;
     public static void main(String[] args) throws SQLException {
         Session session = MySessionFactory.getSessionFactory().openSession();
-        session.beginTransaction();
-        MutationQuery mutationQuery = session.createMutationQuery("update User set level = level + 1");
-        mutationQuery.executeUpdate();
-        session.getTransaction().commit();
+        Transaction transaction = session.beginTransaction();
+        Query<User> query = session.createQuery("from User where id = 1", User.class);
+        User user = query.uniqueResult();
+        user.setName("Gregory");
+        System.out.println(session.isDirty());
+        transaction.commit();
         session.close();
     }
 }
